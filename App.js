@@ -4,8 +4,10 @@
 
 
 
-
-import React, { Component } from 'react';
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text } from 'react-native';
 
 const add = (n) => {
@@ -14,15 +16,41 @@ const add = (n) => {
 
 let a = [2, 4, 7];
 
-class App extends Component {
+function HomeScreen() {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Home Screen</Text>
+    </View>
+  );
+}
+
+function DetailsScreen() {
+  return(
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Text>Details Screen</Text>
+    </View>
+  );
+}
+
+const Stack = createStackNavigator();
+
+class App extends React.Component {
   render() {
-    return(
-      <View>
-        <Text>Ola, { add(0) }</Text>
-        <Text>Ola, { a.map((n) => {
-          return n + 4
-        })}</Text>
-      </View>
+    return (
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen 
+            name="Home" 
+            component={ HomeScreen} 
+            options={{title: 'Overview'}}
+          />
+          <Stack.Screen 
+            name="Details" 
+            component={ DetailsScreen }
+            options={{title: 'Sobre nos'}}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     );
   }
 }
